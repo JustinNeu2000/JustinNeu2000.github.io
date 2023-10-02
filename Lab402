@@ -1,0 +1,26 @@
+ <!DOCTYPE HTML>
+ <html>
+   <Head>
+   <title>This is my third webpage.</title>
+    </Head>
+   <body>
+    <h1>This is my first table</h1>
+     <table>
+        <tr>
+          <th>Species Common Name</tr> <th>Species Scientific Name</th> <th>Species Type (Circle One)</th>
+        </tr>
+            <td>
+              <ol>
+                <li> Green Toad
+                <li> Yellow Toad
+                <li> Orange Toad
+              </ol>
+            </td>
+      </table>
+<p>This is my third webpage. I created it for GIS 3410 at MSUD.</p>
+     <p>The purpose of this lab was to teach us how to code webpages in HTML. I think this is pretty cool.</p>
+     <h2>This is my second heading</h2>
+     <p>Using heading can be very useful to help readers keep the correct flow of reading a webpage.</p>
+     <p>Headings can also aid the visually impaired in being able to read a document.</p>
+   </body>
+ </html>
