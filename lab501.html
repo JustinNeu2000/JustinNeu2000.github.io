@@ -50,8 +50,24 @@
     a:hover    {background-color:#fefeee;}
 
     #frogtable {
-        background-color: gray
+        font-family:arial;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    #frogtable th, #frogtable td {
+        border:1px solid #ddd;
+        padding:8px;
                 }
+    #frogtable th {
+        font: black times bold;
+        background-color: #04aa6d;
+        padding-top:12px;
+        padding-bottom:12px;
+        text-allign: left;
+        color: white;
+    }
+    #frogtable tr:nth-child(even) {background-color:#f2f2f2;}
 </style>
     <body>
         <div id="Container">
@@ -67,7 +83,7 @@
                 <p>Or spelled out it came from this website <a href="https://lirp.cdn-website.com/12dc893f/dms3rep/multi/opt/Squashed-frog-1920w.jpg">https://lirp.cdn-website.com/12dc893f/dms3rep/multi/opt/Squashed-frog-1920w.jpg<a/></p>
                     I am a student at <a href="www.msudenver.edu">MSU Denver. </a>
                 </div>
-             <h2>An Example Table</h2>
+             <h2>An Example Table for Amphibians</h2>
      <table ID="frogtable" border="1" class="tabletext">
         <tr>
           <th>Species Common Name</th> <th>Species Scientific Name</th> <th>Species Type (Circle One)</th>
@@ -98,4 +114,4 @@
                       </div>
     </body>
 </html>
-/*style="border:10px solid black; width"225" height="151";"*/
+<!style="border:10px solid black; width"225" height="151";">
