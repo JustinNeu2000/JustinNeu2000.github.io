@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <Head>
-        <title>This is my sixth webpage.</title>
+        <title>This is my seventh webpage.</title>
      
 <style>
     body { width:100%; }
@@ -75,34 +75,45 @@
     </script>
     <script>
 $(document).ready ( function() {
-      
-          $("#buttontoad").click( function() {
+      console.log("started javascript");
+
+    // do this when we click on the clickToReveal1 button
+       $("#clicktoreveal1").click(function() {
+          // run this when I click on this button
+          console.log("clicked on the 1st button.");
+          $("#div_ctr1").html("Buffo boreas");
+       });
+    // do this when we click on the clicktoreveal2 button
+       $("#clicktoreveal2").click(function() {
+          // run this when I click on this button
+          console.log("clicked on the 2nd button.");
+          $("#div_ctr2").html("Rana pipiens");
+       });
+    // do this when we click on the clicktoreveal3 button
+       $("#clicktoreveal3").click(function() {
+          // run this when I click on this button
+          console.log("clicked on the 3rd button.");
+          $("#div_ctr3").html("Ambistoma tigrum");
+       });
+          $("#toadOnRoadPic").click( function() {
               $("#toadonroad").fadeToggle();
-              console.log("pressed button 16");
+              console.log("pressed button toad");
           });
       })
 
-
-
-
-
-
-
-
-        
-  
-     </script>
+   </script>
 
     </Head>
     <body>
        <div id="Container">
             <h1>My sixth webpage.</h1>
-                <p>This website was created for the 6th laboratory exercise for GIS 3410 at MSU Denver.</p>
+                <p>This website was created for the 7th laboratory exercise for GIS 3410 at MSU Denver.</p>
             
            <div id="Squashedtoad">
                 
                 <img id="toadonroad" src="https://github.com/JustinNeu2000/JustinNeu2000.github.io/assets/146776119/a8984094-29f4-463a-897b-63a38892ac9b" alt="Photo of squashed toad on road">
-                <p class="Caption">Squashed Toad on Road</p>
+               <button id="toadOnRoadPic" >Click Here to turn off picture!</button>
+               <p class="Caption">Squashed Toad on Road</p>
                 <p class="Caption">Photo by unknown artist</p>
 
                 <p class="Caption">The image came from <a href="https://lirp.cdn-website.com/12dc893f/dms3rep/multi/opt/Squashed-frog-1920w.jpg">here<a/></p>
@@ -117,8 +128,8 @@ $(document).ready ( function() {
                             <tr>
                                 <td>Boreal Toad</td>
                                 <td class="Scientificname"> Buffo boreas</td>
-                               <! //onclick="alert('It is a toad!!')">
-                                <td> <button id="buttontoad" >Click Here if you found a toad!</button></td>
+                               <! //>
+                                <td> <button id="buttontoad" onclick="alert('It is a toad!!')" >Click Here if you found a toad!</button></td>
                             </tr>
                                 
                              <tr>
