@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+    <Head>
+        <title>This is my sixth webpage.</title>
+     
+<style>
+    body { width:100%; }
+    #Container {
+        width:80%;
+        text-align: left;
+        margin: 0px auto;
+                }
+    #Squashedtoad {
+                    background-color: blue;
+                    margin-top: 10px;
+                    margin-left: auto;
+                    float:right;
+                    width:250px;
+                    padding:8px;
+                    }
+    
+        #toadonroad {
+                    /*--background-color: green;-->;
+                    margin-left: auto;
+                    margin-right: 0;
+                    float:right;*/
+                    height:auto;
+                    width:200px;
+                    border:1px solid blue;
+                    border-radius:50%;
+                    padding:8px;
+                    display:block;
+                    margin: auto;
+                    }
+        .Caption {
+                font-size:10px;
+                font-family:Lucida Console;
+                text-align:center;
+                }
+        p, td, li {
+            font-size:10px;
+            font-family:Lucida Console;
+                }
+        h1, h2, h3, h4, h5, h6 {
+            font-family:Lucida Console;
+            background-color: blue;
+                                }
+        a {text-decoration:none;}
+        a:visited {background-color:#feeeee;}
+        a:link    {background-color:#eeeefe;}
+        a:hover    {background-color:#fefeee;}
+
+        #table {
+            font-family:Lucida Console;
+            border-collapse: collapse;
+            width: 100%;
+                }
+    
+        #frogtable th, #frogtable td {
+            border:1px solid #ddd;
+            padding:8px;
+                                    }
+        #frogtable th {
+                    font: black Lucida Console bold;
+                    background-color: darkblue;
+                    padding-top:12px;
+                    padding-bottom:12px;
+                    text-allign: left;
+                    color: white;
+                    }
+        #frogtable tr:nth-child(even) {background-color:lightblue;}
+        .Scientificname {font-style: italic; font-weight:bold}
+    </style>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+    </script>
+      <script>
+     // this makes sure the javascript does not run until the page is loaded
+        $(document).ready() function {
+        }
+      </script>
+
+    </Head>
+    <body>
+       <div id="Container">
+            <h1>My sixth webpage.</h1>
+                <p>This website was created for the 5th laboratory exercise for GIS 3410 at MSU Denver.</p>
+            
+           <div id="Squashedtoad">
+                
+                <img id="toadonroad" src="https://lirp.cdn-website.com/12dc893f/dms3rep/multi/opt/Squashed-frog-1920w.jpg" alt="Photo of squashed toad on road">
+                <p class="Caption">Squashed Toad on Road</p>
+                <p class="Caption">Photo by unknown artist</p>
+
+                <p class="Caption">The image came from <a href="https://lirp.cdn-website.com/12dc893f/dms3rep/multi/opt/Squashed-frog-1920w.jpg">here<a/></p>
+                <p class="Caption">I am a student at <a href="https://www.msudenver.edu">MSU Denver. </a></p>
+            </div>
+               
+            <div id="table">
+                    <h2>An Example Table for Amphibians</h2>
+                         <table ID="frogtable" class="tabletext">
+                            <tr>
+                                  <th>Species Common Name</th> <th>Species Scientific Name</th> <th>Species Type</th>
+                            <tr>
+                                <td>Boreal Toad</td>
+                                <td class="Scientificname"> Buffo boreas</td>
+                                <td> <button type="buttontoad" onclick="alert('It is a toad!!')">Click Here if you found a toad!</button>Toad</td>
+                            </tr>
+                                
+                             <tr>
+                                 <td>Leopard Frog</td>
+                                 <td class="Scientificname">Rana pipiens</td>
+                                 <td><button type="buttonfrog" onclick="alert('It is a frog!!')">Click Here if you found a frog!</button>Frog</td>
+                             </tr>
+                             
+                             <tr>
+                                <td>Tiger Salamander</td>
+                                <td class="Scientificname">Ambistoma tigrum</td>
+                                <td><button type="buttonsalamander" onclick="alert('It is a salamander!!')">Click Here if you found a salamander!</button>Salamander</td>
+                             </tr>  
+                      </table>
+                </div>
+                     
+        </div>
+    </body>
+</html>
+<!style="border:10px solid black; width"225" height="151";">
