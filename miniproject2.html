@@ -25,9 +25,7 @@
               // this is the list of letters that have been tried
               triedLetters = "";
 
-              // this is the number of tries left
-              tries = 10;
-              $("#guesses").text("Guesses left: "+tries);
+             
 
               // boolean (true / false variable) to track if game has been won or lost
               gameWon = false;
@@ -46,7 +44,11 @@
                     console.log("clicked on ", letter);
 
                     // make a line through the letter
-                    $(this).css("text-decoration", "line-through", "color:red");
+                    $(this).css("text-decoration", "line-through", style.color = "blue");
+
+                     // this is the number of tries left
+                    tries = 10;
+                    $("#guesses").text("Guesses left: "+tries);
                   
                   }
 
