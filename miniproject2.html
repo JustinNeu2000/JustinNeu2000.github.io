@@ -47,8 +47,7 @@
 
                     // make a line through the letter
                     $(this).css("text-decoration", "line-through", "color:red");
-                  tries = tries-1
-                        $("#guesses").text("Guesses left: "+tries);
+                  
                   }
 
                     // if the letter has already been clicked on, 
@@ -56,14 +55,15 @@
                     if (triedLetters.includes(letter)) {
                       $("#info").text("Letter "+letter+" already tried!");
 
-                    // if the letter isn't in the word, reduce
-                    // the number of tries and check if they lost
-                    } else if (! word.includes(letter)) {
-                      
                       // reduce the number of remaining tries by 1
                         tries = tries-1
                         $("#guesses").text("Guesses left: "+tries);
 
+
+                    // if the letter isn't in the word, reduce
+                    // the number of tries and check if they lost
+                    } else if (! word.includes(letter)) {
+                      
                       // are they out of tries? then they lost!
                         if (tries < 1) {
                           gameLost = true;
