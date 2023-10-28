@@ -47,16 +47,17 @@
 
                     // make a line through the letter
                     $(this).css("text-decoration", "line-through", darkgray);
+                  }
 
                     // if the letter has already been clicked on, 
                     // let the user know it's already been tried
                     if (triedLetters.includes(letter)) {
+                      $("info").text("Letter "+letter+" already tried!");
 
                     // if the letter isn't in the word, reduce
                     // the number of tries and check if they lost
                     } else if (! word.includes(letter)) {
-                      $("info").text("Letter "+letter+" already tried.");
-
+                      
                       // reduce the number of remaining tries by 1
                         tries = tries-1
                         $("#guesses").text("Guesses left: "+tries);
@@ -65,6 +66,7 @@
                         if (tries < 1) {
                           gameLost = True;
                           $("#info").text("Sorry, you are out of tries. You Lose!");
+                        }
                     
                     
                     // otherwise, put a line through it and
@@ -79,16 +81,17 @@
                       while (word.includes(letter)) {
                         index = word.indexOf(letter);
                         console.log("index of word is ", index);
-                        word = workd.substring(0, index) + "" + word.substring((index + 1));
+                        word = word.substring(0, index) + "" + word.substring((index + 1));
                         blank = blank.substring(0, index) + letter + blank.substring((index + 1));
+                      }
                         $("#word").text(blank);
-                        console.log("work is ", word);
+                        console.log("word is ", word);
                         console.log("blank is ", blank);
                         
                           }
                      
                       // check if the player has won the game
-                    if (!blank.includes("-")) {
+                    if (! blank.includes("-")) {
                         gameWon = true;
                         $("#info").text("You Rock! You won the game!");
 
@@ -97,7 +100,7 @@
                     // add the letter to letters already tried
                       triedLetters = triedLetters + letter;
                       console.log("triedLetters is ", triedLetters);
-                  }
+                
               });
 
              // 
