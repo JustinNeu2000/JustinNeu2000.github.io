@@ -44,7 +44,7 @@
     color: 'green',
     fillColor: '#f03',
     fillOpacity: 0.5,
-    radius: 1600
+    radius: 3600
 }).addTo(map);
 	  var polygon = L.polygon([
     [43.75, -121.503],
@@ -52,12 +52,13 @@
     [43.58, -121.40],
     [43.664, -121.39],
 ]).addTo(map);
-	  marker.bindPopup("<b>La Pine Oregon... where everyday is Sunday!</b><br>I am a popup.").openPopup();
-circle.bindPopup("I am a circle.");
-polygon.bindPopup("I am a polygon.");
+	  marker.bindPopup("<b>La Pine Oregon... where everyday is Sunday!</b><br>La Pine, Oregon.").openPopup();
+	circle.bindPopup("My old neighborhood.");
+	circle2.bindPopup("Paulina Peak, a great place to fish and camp.");
+	polygon.bindPopup("A random polygon of La Pine, Oregon.");
 	  var popup = L.popup()
     .setLatLng([43.5,-121.5])
-    .setContent("I am a standalone popup.")
+    .setContent("A random standalone popup.")
     .openOn(map);
 	  function onMapClick(e) {
     alert("You clicked the map at " + e.latlng);
