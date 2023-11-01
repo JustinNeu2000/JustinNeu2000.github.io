@@ -21,36 +21,36 @@
 			max-width: 100%;
 			max-height: 100%;
 		}
-		<!--#map { height: 700px; }-->
+		<!--#map { height: 700px; };-->
 	</style>
 </head>
 <body>
    <div id="map"></div>
   <script>
-  var map = L.map('map').setView([43.0, -121.3], 10);
+  var map = L.map('map').setView([43.67, -121.503], 10);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-    //..const marker = L.marker([,]).addTo(map)//
-		//.bindPopup('<b>My First Popup!</b><br />I am a popup.').openPopup();..//
-	  var marker = L.marker( 43.6703995, -121.50363]).addTo(map);
-	  var circle = L.circle([43.6703995, -121.50363], {
+   
+	  var marker = L.marker([43.6703995, -121.50363]).addTo(map);
+	  var circle = L.circle([43.670, -121.495], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
     radius: 600
 }).addTo(map);
 	  var polygon = L.polygon([
-    [43.67, -121.503],
+    [43.75, -121.503],
     [43.60, -121.49],
-    [43.58, -121.40]
+    [43.58, -121.40],
+    [43.664, -121.39],
 ]).addTo(map);
-	  marker.bindPopup("<b>La Pine Oregon... the most boring place to grow up!!</b><br>I am a popup.").openPopup();
+	  marker.bindPopup("<b>La Pine Oregon... where everyday is Sunday!</b><br>I am a popup.").openPopup();
 circle.bindPopup("I am a circle.");
 polygon.bindPopup("I am a polygon.");
 	  var popup = L.popup()
-    .setLatLng([43.6703995,-121.50363)
+    .setLatLng([43.5,-121.5])
     .setContent("I am a standalone popup.")
     .openOn(map);
 	  function onMapClick(e) {
