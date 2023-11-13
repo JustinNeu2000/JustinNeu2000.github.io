@@ -88,7 +88,7 @@
 		}
 		function style1(feature) {
     return{	
-				fillColor	:answer(feature.MEDIAN_HOME_VALUE),
+				fillColor	:answer(feature.properties.MEDIAN_HOME_VALUE),
 				weight 	: 1,
 				opacity	: 1,
 				color		: 'white',
@@ -104,8 +104,7 @@
       //new lab 9 code, creates popup on the map
       acsDenver2021layer = L.geoJSON(data, { style : style1,
 			onEachFeature : function(feature, layer) {
-				layer.bindPopup("Median Home Value: " + "$"+ 
-feature.MEDIAN_HOME_VALUE);
+				layer.bindPopup("Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE);
 				}
 			}).addTo(map);
 
