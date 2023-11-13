@@ -102,7 +102,7 @@
 			//convert the file (data) into a layer
 			// old code acsDenver2021layer = L.geoJSON(data,{ style: style1 })).addTo(map);
       //new lab 9 code, creates popup on the map
-      acsDenver202lLayer = L.geoJSON(data, { style : style1,
+      acsDenver202llayer = L.geoJSON(data, { style : style1,
 			onEachFeature : function(feature, layer) {
 				layer.bindPopup("Percent Poverty: " + 
 feature.properties.PCT_POVERTY + "%");
