@@ -97,7 +97,7 @@
 	};
 
 	info.update = function (props) {
-		const contents = props ? `<b>${feature.properties.MEDIAN_HOME_VALUE}</b><br />: 'Hover over a neighborhood';
+		const contents = props ? `<b>${props.MEDIAN_HOME_VALUE}</b><br />: 'Hover over a neighborhood';
 			};
 
 	info.addTo(map);
@@ -191,7 +191,7 @@ const legend = L.control({position: 'bottomright'});
 	legend.onAdd = function (map) {
 
 		const div = L.DomUtil.create('div', 'info legend');
-		const grades = [0, 450000, 550000, 650000, 750000, 850000, 950000, 1000000];
+		const grades = [0, 450,000, 550,000, 650,000, 750,000, 850,000, 950,000, 1,000,000];
 		const labels = [];
 		let from, to;
 
