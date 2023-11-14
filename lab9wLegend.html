@@ -127,14 +127,13 @@
 		//});
 
 
-	// end document ready
-	});
+	
 const legend = L.control({position: 'bottomright'});
 
 	legend.onAdd = function (map) {
 
 		const div = L.DomUtil.create('div', 'info legend');
-		const grades = [0, 450, 550, 650, 750, 850, 950, 1000];
+		const grades = [0, 450000, 550000, 650000, 750000, 850000, 950000, 1000000];
 		const labels = [];
 		let from, to;
 
@@ -150,6 +149,9 @@ const legend = L.control({position: 'bottomright'});
 	};
 
 	legend.addTo(map);
+
+		// end document ready
+	});
 </script>
 </head>
 <body>
