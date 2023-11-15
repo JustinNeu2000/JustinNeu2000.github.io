@@ -104,7 +104,7 @@
 	};
 
 	info.update = function (props) {
-    		const contents = props ? `<b>${string(props.MEDIAN_HOME_VALUE)}</b><br />` : 'Hover over a neighborhood';
+    		const contents = props ? `<b>${string(props.Median_Home_Value)}</b><br />` : 'Hover over a neighborhood';
     		this._div.innerHTML = contents;
 					};
 
@@ -118,7 +118,7 @@
 			color: 'white',
 			dashArray: '3',
 			fillOpacity: 0.7,
-			fillColor: answer(feature.properties.MEDIAN_HOME_VALUE)
+			fillColor: answer(feature.properties.Median_Home_Value)
 		};
 	}
 
@@ -159,7 +159,7 @@
 		}
 		function style1(feature) {
     return{	
-				fillColor	:answer(feature.properties.MEDIAN_HOME_VALUE),
+				fillColor	:answer(feature.properties.Median_Home_Value),
 				weight 	: 1,
 				opacity	: 1,
 				color		: 'white',
@@ -175,7 +175,7 @@
       //new lab 9 code, creates popup on the map
       acsDenver2021layer = L.geoJSON(data, { style : style1,
 			onEachFeature : function(feature, layer) {
-				layer.bindPopup("Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE);
+				layer.bindPopup("Median Home Value: " + "$" + feature.properties.Median_Home_Value);
 				}
 			}).addTo(map);
 
