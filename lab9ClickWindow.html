@@ -104,7 +104,7 @@
 	};
 
 	info.update = function (props) {
-    		const contents = props ? `<b>${props.MEDIAN_HOME_VALUE}</b><br />` : 'Hover over a neighborhood';
+    		const contents = props ? `<b>${string(props.MEDIAN_HOME_VALUE)}</b><br />` : 'Hover over a neighborhood';
     		this._div.innerHTML = contents;
 					};
 
@@ -148,14 +148,14 @@
     // new function for lab 9
 		function answer(d){
 		
-		return d > 1000000 ? '#800026' : 
+			return d > 1000000 ? '#800026' : 
 				d > 950000 ? '#DB0026' : 
 				d > 850000 ? '#E31A1C' : 
 				d > 750000 ? '#FC4E2A' : 
 				d > 650000 ? '#FD8D3C' : 
-					d > 550000 ? '#FEB24C' : 
-					d > 450000 ? '#FED976' : 
-							'#FFEDA0';
+				d > 550000 ? '#FEB24C' : 
+				d > 450000 ? '#FED976' : 
+				'#FFEDA0';
 		}
 		function style1(feature) {
     return{	
