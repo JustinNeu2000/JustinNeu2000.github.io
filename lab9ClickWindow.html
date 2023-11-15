@@ -214,7 +214,7 @@ const legend = L.control({position: 'bottomright', Opacity:.9, Color: 'white'});
 			labels.push(`<i style="background:${answer(from + 1)}"></i> ${from.toLocaleString()}${to ? `&ndash;${to.toLocaleString()}` : '+'}`);
 
 		}
-
+ 		L.DomUtil.setOpacity(div, 0.8);  // Set opacity directly
 		div.innerHTML = labels.join('<br>');
 		return div;
 	};
