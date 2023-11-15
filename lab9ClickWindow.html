@@ -106,7 +106,7 @@
 	info.update = function (props) {
     		console.log('Properties:', props); // Add this line for debugging
 		const contents = props ? `<b>${String(props.MEDIAN_HOME_VALUE)}</b><br />` : 'Hover over a neighborhood';
-    		this._div.innerHTML = `<h4>Median Denver Home Values</h4>${contents}';
+		this._div.innerHTML = `<h4>Median Denver Home Values</h4>${contents}`;
 					};
 
 	info.addTo(map);
