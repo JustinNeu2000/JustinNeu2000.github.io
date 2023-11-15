@@ -104,11 +104,10 @@
 	};
 
 	info.update = function (props) {
-    		console.log('Properties:', props); // Add this line for debugging
-		const contents = props ? `<b>${Number(props.MEDIAN_HOME_VALUE)}</b><br />` : 'Hover over a neighborhood';
-		this._div.innerHTML = `<h4>Median Denver Home Values</h4>${contents}`;
-					};
-
+	    console.log('Properties:', props); // Add this line for debugging
+	    const contents = props ? `<b>$${Number(props.MEDIAN_HOME_VALUE).toLocaleString()}</b><br />` : 'Hover over a neighborhood to see Meidan Home Values';
+	    this._div.innerHTML = `<h4>Median Denver Home Values by Neighborhood</h4>${contents}`;
+	};
 	info.addTo(map);
 
 
