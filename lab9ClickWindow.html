@@ -169,32 +169,34 @@
 			}
 		};
 
-		// let's add the Denver ACS data -- ##4 here
-		$.getJSON('./acs_denver_2021.geojson', function(data) {
-			//convert the file (data) into a layer
-			// old code acsDenver2021layer = L.geoJSON(data,{ style: style1 })).addTo(map);
-      //new lab 9 code, creates popup on the map
-      acsDenver2021layer = L.geoJSON(data, { style : style1,
-			onEachFeature : function(feature, layer) {
-				layer.bindPopup("Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE);
-				}
-			}).addTo(map);
-
-			//Move map to layer bounds
-			map.panTo(acsDenver2021layer.getBounds().getCenter());
-
-			//add map to the layer control
-			layerControl.addOverlay(acsDenver2021layer, "Census 2021");
-		});
-
-		// let's try to add some remote DRCOG data
-		//$.getJSON('https://data.colorado.gov/api/geospatial/trm9-dm4m?method=export&format=GeoJSON', function(data) {
-		//	newLayer = L.geoJSON(data);
-		//	layerControl.addOverlay(newLayer, "Highway Markers");
-		//});
 
 
-	
+$.getJSON('./acs_denver_2021.geojson', function(data) {
+    acsDenver2021layer = L.geoJSON(data, {
+        style: style1,
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup("Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE);
+
+            // Bind the hover event within onEachFeature
+            layer.on({
+                mouseover: highlightFeature,
+                mouseout: function(e) {
+                    // Reset styles or do other actions on mouseout if needed
+                    acsDenver2021layer.resetStyle(e.target);
+                    info.update(); // Clear the info window
+                }
+            });
+        }
+    }).addTo(map);
+
+    // Move map to layer bounds
+    map.panTo(acsDenver2021layer.getBounds().getCenter());
+
+    // Add map to the layer control
+    layerControl.addOverlay(acsDenver2021layer, "Census 2021");
+});
+
+		
 const legend = L.control({position: 'bottomright'});
 
 	legend.onAdd = function (map) {
