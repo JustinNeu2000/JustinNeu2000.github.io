@@ -104,7 +104,8 @@
 	};
 
 	info.update = function (props) {
-    		const contents = props ? `<b>${string(props.MEDIAN_HOME_VALUE)}</b><br />` : 'Hover over a neighborhood';
+    		console.log('Properties:', props); // Add this line for debugging
+		const contents = props ? `<b>${string(props.MEDIAN_HOME_VALUE)}</b><br />` : 'Hover over a neighborhood';
     		this._div.innerHTML = contents;
 					};
 
