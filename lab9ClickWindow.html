@@ -106,7 +106,7 @@
 	info.update = function (props) {
     		console.log('Properties:', props); // Add this line for debugging
 		const contents = props ? `<b>${String(props.MEDIAN_HOME_VALUE)}</b><br />` : 'Hover over a neighborhood';
-    		this._div.innerHTML = `<h4>Median Denver Home Values</h4>${contents};
+    		this._div.innerHTML = `<h4>Median Denver Home Values</h4>${contents}';
 					};
 
 	info.addTo(map);
@@ -210,7 +210,8 @@ const legend = L.control({position: 'bottomright'});
 			from = grades[i];
 			to = grades[i + 1];
 
-			labels.push(`<i style="background:${answer(from + 1)}"></i> ${from}${to ? `&ndash;${to}` : '+'}`);
+			labels.push(`<i style="background:${answer(from + 1)}"></i> ${from.toLocaleString()}${to ? `&ndash;${to.toLocaleString()}` : '+'}`);
+
 		}
 
 		div.innerHTML = labels.join('<br>');
