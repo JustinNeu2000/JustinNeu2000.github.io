@@ -106,7 +106,7 @@
 	info.update = function (props) {
     console.log('Properties:', props); // Add this line for debugging
     const contents = props ? `<b>$${Number(props.MEDIAN_HOME_VALUE).toLocaleString()}</b><br />` : 'Hover over a neighborhood';
-    this._div.innerHTML = `<h4>Median Denver Home Values</h4>${contents}`;
+    this._div.innerHTML = `<h4>Denver Median Home Values</h4>${contents}`;
     this._div.style.background = props ? `rgba(255, 255, 255, 0.9)` : 'rgba(255, 255, 255, 0)'; // Adjust the alpha value as needed
 };
 
@@ -119,7 +119,7 @@
 			opacity: 1,
 			color: 'white',
 			dashArray: '3',
-			fillOpacity: 0.7,
+			fillOpacity: 0.9,
 			fillColor: answer(feature.properties.MEDIAN_HOME_VALUE)
 		};
 	}
