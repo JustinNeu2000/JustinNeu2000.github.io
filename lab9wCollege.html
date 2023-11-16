@@ -103,9 +103,9 @@
 	info.update = function (props) {
     console.log('Properties:', props); // Add this line for debugging
 //    const contents = props ? `$${Number(props.MEDIAN_HOME_VALUE).toLocaleString()}<br/>Number(props.COLLEGE_UNDERGRADUATE)/Number(props.TTL_POPULATION_ALL)'%'<br />` : 'Hover over a neighborhood';
-   const contents = props ? `$${Number(props.MEDIAN_HOME_VALUE).toLocaleString()}<br/>${(Number(props.COLLEGE_UNDERGRADUATE) / Number(props.TTL_POPULATION_ALL) * 100).toFixed(2)}%<br />` : 'Hover over a neighborhood';
+   const contents = props ? `$${Number(props.MEDIAN_HOME_VALUE).toLocaleString()}<br/>${(Number(props.BACHELORS_OR_HIGHER_EDU) / Number(props.TTL_POPULATION_ALL) * 100).toFixed(2)}%<br />` : 'Hover over a neighborhood';
 
-    this._div.innerHTML = `<h4>Denver Median Home Values<br/>Percent of College Graduates</h4>${contents}`;
+    this._div.innerHTML = `<h4>Denver Median Home Values<br/>Percentage of College Graduates</h4>${contents}`;
     //this._div.style.background = props ? `rgba(255, 255, 255, 0.9)` : 'rgba(255, 255, 255, .9)'; // Adjust the alpha value as needed
 };
 
@@ -209,7 +209,8 @@ $.getJSON('./acs_denver_2021.geojson', function(data) {
 			from = grades[i];
 			to = grades[i + 1];
 
-			labels.push(`<i style="background:${answer(from + 1)}"></i> ${from}${to ? `&ndash;${to}` : '+'}`);
+			// labels.push(`<i style="background:${answer(from + 1)}"></i> ${from}${to ? `&ndash;${to}` : '+'}`);
+			labels.push(`<i style="background:${answer(from + 1)}"></i> ${from.toLocaleString()}${to ? `&ndash;${to.toLocaleString()}` : '+'}`);
 		}
 
 		div.innerHTML = labels.join('<br>');
