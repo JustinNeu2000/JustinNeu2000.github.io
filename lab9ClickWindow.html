@@ -189,9 +189,14 @@ $.getJSON('./acs_denver_2021.geojson', function(data) {
         }
     }).addTo(map);
 
-   
-		
-const legend = L.control({position: 'bottomright', Opacity:.9, Color: 'white'});
+	// Move map to layer bounds
+    map.panTo(acsDenver2021layer.getBounds().getCenter());
+
+    // Add map to the layer control
+    layerControl.addOverlay(acsDenver2021layer, "Census 2021");
+});
+
+   const legend = L.control({position: 'bottomright'});
 
 	legend.onAdd = function (map) {
 
@@ -204,22 +209,17 @@ const legend = L.control({position: 'bottomright', Opacity:.9, Color: 'white'});
 			from = grades[i];
 			to = grades[i + 1];
 
-			labels.push(`<i style="background:${answer(from + 1)}"></i> ${from.toLocaleString()}${to ? `&ndash;${to.toLocaleString()}` : '+'}`);
-
+			labels.push(`<i style="background:${answer(from + 1)}"></i> ${from}${to ? `&ndash;${to}` : '+'}`);
 		}
- 		L.DomUtil.setOpacity(div, 0.8);  // Set opacity directly
+
 		div.innerHTML = labels.join('<br>');
 		return div;
 	};
 
 	legend.addTo(map);
 
-	// Move map to layer bounds
-    map.panTo(acsDenver2021layer.getBounds().getCenter());
 
-    // Add map to the layer control
-    layerControl.addOverlay(acsDenver2021layer, "Census 2021");
-});
+	
 
 		// end document ready
 	});
