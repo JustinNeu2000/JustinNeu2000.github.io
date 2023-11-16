@@ -41,15 +41,14 @@
 		}
 		
 		a { text-decoration: none; color: inherit; }
-		</style>
-		<style>
-		#map { width:100%; height: 70%; }
+
+		#map { width:100%; height: 70%}
 // Style info for floating window
    	 .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: rgba(255,255,255,0.9); box-shadow: 0 0 15px rgba(0,0,0,0.9); border-radius: 5px; }
 	.info h4 { margin: 0 0 5px; color: #777; opacity:.9}
 //Style for legend
-	.legend { text-align: left;line-height: 18px; color: black; background: rgba(255, 255, 255, 0.8);  /* Increase opacity to 80% */}
-	.legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.9; background: rgba(255, 255, 255, 0.8}
+	.legend { text-align: left;line-height: 18px; color: black; background: rgba(255, 255, 255, 0.9);  /* Increase opacity to 80% */}
+	.legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.9; background: rgba(255, 255, 255, 0.}
 </style>
 		
 
@@ -190,13 +189,7 @@ $.getJSON('./acs_denver_2021.geojson', function(data) {
         }
     }).addTo(map);
 
-    // Move map to layer bounds
-    map.panTo(acsDenver2021layer.getBounds().getCenter());
-
-    // Add map to the layer control
-    layerControl.addOverlay(acsDenver2021layer, "Census 2021");
-});
-
+   
 		
 const legend = L.control({position: 'bottomright', Opacity:.9, Color: 'white'});
 
@@ -220,6 +213,13 @@ const legend = L.control({position: 'bottomright', Opacity:.9, Color: 'white'});
 	};
 
 	legend.addTo(map);
+
+	// Move map to layer bounds
+    map.panTo(acsDenver2021layer.getBounds().getCenter());
+
+    // Add map to the layer control
+    layerControl.addOverlay(acsDenver2021layer, "Census 2021");
+});
 
 		// end document ready
 	});
