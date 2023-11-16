@@ -43,11 +43,9 @@
 		a { text-decoration: none; color: inherit; }
 
 		#map { width:100%; height: 70%}
-// Style info for floating window
-   	 .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: rgba(255,255,255,0.9); box-shadow: 0 0 15px rgba(0,0,0,0.9); border-radius: 5px; }
-	.info h4 { margin: 0 0 5px; color: #777; opacity:.9}
-//Style for legend
-	.legend { text-align: left; line-height: 18px; color: black; background: white } 
+   	 	.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: rgba(255,255,255,0.9); box-shadow: 0 0 15px rgba(0,0,0,0.9); border-radius: 5px; }
+		.info h4 { margin: 0 0 5px; color: #777; opacity:.9}
+		.legend { text-align: left; line-height: 18px; color: black; background: white } 
 		.legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
 </style>
 		
@@ -106,7 +104,7 @@
     console.log('Properties:', props); // Add this line for debugging
     const contents = props ? `<b>$${Number(props.MEDIAN_HOME_VALUE).toLocaleString()}</b><br />` : 'Hover over a neighborhood';
     this._div.innerHTML = `<h4>Denver Median Home Values</h4>${contents}`;
-    this._div.style.background = props ? `rgba(255, 255, 255, 0.9)` : 'rgba(255, 255, 255, .9)'; // Adjust the alpha value as needed
+    //this._div.style.background = props ? `rgba(255, 255, 255, 0.9)` : 'rgba(255, 255, 255, .9)'; // Adjust the alpha value as needed
 };
 
 	info.addTo(map);
