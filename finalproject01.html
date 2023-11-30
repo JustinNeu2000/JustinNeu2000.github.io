@@ -95,7 +95,8 @@
 		$.getJSON('./Durango.geojson', function(data) {
 			//convert the file (data) into a layer
       //Creates popup on the map
-      Durangolayer = L.geoJSON(data, { style : style1,
+			//NEED TO STYLE THE LAYER!
+      Durangolayer = L.geoJSON(data, { 
 			}).addTo(map);
 
 			//Move map to layer bounds
