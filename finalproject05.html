@@ -108,6 +108,11 @@
       //Creates popup on the map
 			//NEED TO STYLE THE LAYER!
       BikeRacksDenverlayer = L.geoJSON(data, { 
+	      		style: {
+        color: 'pink',  // Change color as needed
+        weight: 2,
+        opacity: 1
+    }
 			}).addTo(map);
 		//Move map to layer bounds
 			map.panTo(BikeRacksDenverlayer.getBounds().getCenter());
