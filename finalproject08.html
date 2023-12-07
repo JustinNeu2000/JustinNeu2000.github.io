@@ -128,7 +128,8 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
 			//convert the file (data) into a layer
       var countValues = data.features.map(function(feature) {
         return feature.properties.Point_Count;
-	      
+	  });
+	
 	//Creates popup on the map
 			//NEED TO STYLE THE LAYER!
       DenverBikeDensitylayer = L.geoJSON(data, { 
