@@ -116,9 +116,10 @@
 		var layerMenu = L.control.layers(basemaps,overlapmaps).addTo(map);
 
     
-		// let's add the geoJSON data --
+		// add the geoJSON data
 		$.getJSON('./BikeRacksDenver2.geojson', function(data) {
-			 pointToLayer: function(feature, latlng) {
+			var BikeRacksDenverLayer = L.geoJSON(data, { 
+			pointToLayer: function(feature, latlng) {
            		 // Make circle instead of default
             		return L.circleMarker(latlng, {
                 	radius: 6, // Adjust the radius as needed
