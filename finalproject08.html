@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/7.8.3/simple-statistics.min.js"></script>
 
 
 	<style>
@@ -60,6 +61,7 @@
 	   		margin-right: 8px;
 	   		opacity: 0.8;
 			}
+		
 
 	</style>
 
@@ -92,11 +94,19 @@
 		var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
 			attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
+		var Stamen_Watercolor = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			subdomains: 'abcd',
+			minZoom: 1,
+			maxZoom: 16,
+			ext: 'jpg'
+			});
 
 		// this is an object to keep track of our three basemaps -- ##2 here
 			var baseMaps = { "OpenStreetMap" : OSMTiles,
 			  		 "Humanitarian OSM" : HOTOSMTiles,
-             				 "OpenTopoMap" : OpenTopoMap };
+             				 "OpenTopoMap" : OpenTopoMap 
+				         "Stamen_Watercolor: Stamen_Watercolor};
 
 
 		// the control let's the user turn on / off layers -- ##3 here
@@ -116,7 +126,10 @@
 			}).addTo(map);
 $.getJSON('./DenverBikeDensity.geojson', function(data) {
 			//convert the file (data) into a layer
-      //Creates popup on the map
+      var countValues = data.features.map(function(feature) {
+        return feature.properties.Point_Count;
+	      
+	//Creates popup on the map
 			//NEED TO STYLE THE LAYER!
       DenverBikeDensitylayer = L.geoJSON(data, { 
 	      		style: {
