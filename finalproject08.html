@@ -150,7 +150,7 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
 			map.panTo(BikeRacksDenverLayer.getBounds().getCenter());
 
 			//add map to the layer control
-			layerControl.addOverlay(BikeRacksDenverlayer, "Denver Bike Racks"); 
+			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
 			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Bike Racks Count by Neighborhood");
 		});
    
