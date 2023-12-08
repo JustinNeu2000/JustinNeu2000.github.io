@@ -171,12 +171,9 @@
         		}
 			}).addTo(map);
 		$.getJSON('./DenverBikeDensity.geojson', function(data) {
-			//convert the file (data) into a layer
-      			var countValues = data.features.map(function(feature) {
-        		return feature.properties.Point_Count;
-	  		});
-			var layer_DBD = L.choropleth(geojson, {
-        		valueProperty: 'Point_Count',
+    			// Convert the file (data) into a layer
+    			var layer_DBD = L.choropleth(data, {
+      			valueProperty: 'Point_Count',
         		scale: ['red', 'orange', 'yellow'],
         		style: {
             		color: '#111111', // border color
@@ -184,14 +181,15 @@
             		fillOpacity: 0.5,
             		fillColor: '#ffffff'
         		}
-    		}).addTo(map);
-      		DenverBikeDensitylayer = L.geoJSON(data, { 
-	      		style: {
-       			 color: 'orange',  // Change color as needed
-       			 weight: 2,
-        		 opacity: 1
-    			}
-			}).addTo(map);
+    			}).addTo(map);
+
+    			DenverBikeDensitylayer = L.geoJSON(data, {
+        			style: {
+            			color: 'orange',  // Change color as needed
+            			weight: 2,
+            			opacity: 1
+        			}
+    			}).addTo(map);
 
 		//Move map to layer bounds
 			map.panTo(BikeRacksDenverLayer.getBounds().getCenter());
