@@ -26,7 +26,7 @@
 		  color: white;
 		}
 		button {
-    			/*float: right;
+    			/*float: right;*/
 			position: absolute; /* Position the button absolutely within the #header */
     			top: 0;
     			right: 0;
@@ -143,18 +143,18 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
       var countValues = data.features.map(function(feature) {
         return feature.properties.Point_Count;
 	  });
-      DenverBikeDensitylayer = L.geoJSON(data, { 
-	      		style: {
-       			 color: 'orange',  // Change color as needed
-       			 weight: 2,
-        		 opacity: 1
-    			},
-	      		// Add popup
-            		var popupContent2 = "There are + Point_Count + Bike Racks <br>installed by the City of Denver in this Neigborhood";
-            		layer.bindPopup(popupContent2);
-        		}
-
-			}).addTo(map);
+     DenverBikeDensitylayer = L.geoJSON(data, {
+    				style: {
+        			color: 'orange',
+       				weight: 2,
+        			opacity: 1
+    				},
+    				onEachFeature: function(feature, layer) {
+        			// Add popup
+        			var popupContent2 = "There are " + feature.properties.Point_Count + " Bike Racks <br>installed by the City of Denver in this Neighborhood";
+        			layer.bindPopup(popupContent2);
+    				}
+				}).addTo(map);
 
 		//Move map to layer bounds
 			map.panTo(BikeRacksDenverLayer.getBounds().getCenter());
