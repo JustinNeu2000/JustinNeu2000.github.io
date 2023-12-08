@@ -155,7 +155,11 @@
         			layer.bindPopup(popupContent2);
     				}
 				}).addTo(map);*/
-
+function handleDenverBikeDensitylayer() {
+    // Your code that depends on DenverACSLayer should be placed here
+    // For example, you might want to add DenverBikeDeDensityLayer to the layer control
+    layerControl.addOverlay(DenverBikeDensityLayer, "Denver Neighborhood Bike Rack Count");
+}
 // Load GeoJSON data for DenverBikeDensitylayer
 $.getJSON('./DenverBikeDensity.geojson', function(data) {
     DenverBikeDensitylayer = L.geoJSON(data, {
@@ -199,7 +203,7 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
 			pointToLayer: function(feature, latlng) {
            		 // Make circle instead of default
             		return L.circleMarker(latlng, {
-                	radius: 6, // Adjust the radius as needed
+                	radius: 3, // Adjust the radius as needed
                 	fillColor: 'red', // Changes fill color
                 	color: 'white',  // Changes border color
                 	weight: 2,
@@ -264,7 +268,7 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 
 			//add map to the layer control
 			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
-			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
+			//layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
       			//layerControl.addOverlay(DenverACSLayer, "Denver Median Home values by Neighborhood");
 			
 		});
@@ -295,7 +299,7 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend');
-	 colors = ['#FFEDA0y','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','lightgray'];
+	 colors = ['#FFEDA0','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','lightgray'];
        labels = ['0 - 1', '2 - 4', '5 - 10', '11 - 17', '18 - 150'];
     // note match your classes from style feature above
 
