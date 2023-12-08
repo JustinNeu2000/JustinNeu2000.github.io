@@ -169,11 +169,7 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
             layer.bindPopup(popupContent2);
         }
     });
-
-    // Add the DenverBikeDensitylayer to the layer control without adding it to the map initially
-    layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
-
-    // Handle overlay add/remove events to show/hide the legend
+    // add/remove events to show/hide the legend
     map.on('overlayadd', function(event) {
         if (event.layer === DenverBikeDensitylayer) {
             // Show the legend when DenverBikeDensitylayer is added to the map
