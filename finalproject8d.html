@@ -31,6 +31,15 @@
     			right: 0;
     			margin: 10px;
 }
+
+		button2 {
+    			float: right;
+			/*position: absolute;  Position the button absolutely within the header */
+    			top: 20;
+    			right: 0;
+    			margin: 10px;
+}
+		
 		#map { width:100%; height: 70%; }
 		
 		h1 { color: #3293a8;
@@ -239,8 +248,9 @@ legend.addTo(map);
 
 
 <div id="header">
-<button onclick="myFunction()">Toggle dark mode</button>
-	<button onclick="myFunction2()">Toggle dark mode2</button>
+
+	<button onclick="myFunction()">Toggle dark mode</button>
+	<button2 onclick="myFunction2()">Toggle dark mode2</button>
 	<h1><a href="https://www.census.gov/programs-surveys/acs">Denver Bike Rack Data</a></h1>
 	<h2><a>Bike Rack Counts by Neighborhood</a></h2>
 	<p>Data from <a href="https://denvergov.org/opendata/">Denver Open Data</a></p>
