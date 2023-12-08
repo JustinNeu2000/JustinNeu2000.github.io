@@ -149,6 +149,11 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
        			 weight: 2,
         		 opacity: 1
     			}
+	      		// Add popup
+            		var popupContent2 = "There are + Point_Count + Bike Racks <br>installed by the City of Denver in this Neigborhood";
+            		layer.bindPopup(popupContent);
+        		}
+
 			}).addTo(map);
 
 		//Move map to layer bounds
