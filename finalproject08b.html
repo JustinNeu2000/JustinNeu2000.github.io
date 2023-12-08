@@ -148,10 +148,10 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
        			 color: 'orange',  // Change color as needed
        			 weight: 2,
         		 opacity: 1
-    			}
+    			},
 	      		// Add popup
             		var popupContent2 = "There are + Point_Count + Bike Racks <br>installed by the City of Denver in this Neigborhood";
-            		layer.bindPopup(popupContent);
+            		layer.bindPopup(popupContent2);
         		}
 
 			}).addTo(map);
@@ -161,7 +161,7 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
 
 			//add map to the layer control
 			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
-			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Bike Racks Count by Neighborhood");
+			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
 		});
    
 		});
