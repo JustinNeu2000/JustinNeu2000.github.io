@@ -119,7 +119,7 @@
 		var overlaymaps = { };
 		var layerControl = L.control.layers(baseMaps,overlaymaps).addTo(map);
 
-function answer(d){
+/*function answer(d){
 		
 		return 		d > 150 ? 'lightgray' : 
 				d > 17 ? '#FC4E2A' : 
@@ -138,11 +138,11 @@ function answer(d){
 				fillOpacity : 0.7
 			}
 		};
-
+*/
 
 		
 		// add the geoJSON data
-			$.getJSON('./DenverBikeDensity.geojson', function(data) {
+			/*$.getJSON('./DenverBikeDensity.geojson', function(data) {
 				//convert the file (data) into a layer
      				 var countValues = data.features.map(function(feature) {
         			return feature.properties.Point_Count;
@@ -154,7 +154,46 @@ function answer(d){
         			var popupContent2 = "There are " + feature.properties.Point_Count + " Bike Racks <br>installed by the City of Denver in this Neighborhood";
         			layer.bindPopup(popupContent2);
     				}
-				}).addTo(map);
+				}).addTo(map);*/
+
+// Load GeoJSON data for DenverBikeDensitylayer
+$.getJSON('./DenverBikeDensity.geojson', function(data) {
+    DenverBikeDensitylayer = L.geoJSON(data, {
+        style: style1,
+        onEachFeature: function(feature, layer) {
+            var popupContent2 = "There are " + feature.properties.Point_Count + " Bike Racks <br>installed by the City of Denver in this Neighborhood";
+            layer.bindPopup(popupContent2);
+        }
+    });
+
+    // Add the DenverBikeDensitylayer to the layer control without adding it to the map initially
+    layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
+
+    // Handle overlay add/remove events to show/hide the legend
+    map.on('overlayadd', function(event) {
+        if (event.layer === DenverBikeDensitylayer) {
+            // Show the legend when DenverBikeDensitylayer is added to the map
+            legend.addTo(map);
+        }
+    });
+
+    map.on('overlayremove', function(event) {
+        if (event.layer === DenverBikeDensitylayer) {
+            // Hide the legend when DenverBikeDensitylayer is removed from the map
+            map.removeControl(legend);
+        }
+    });
+
+    // Handle any code that depends on DenverBikeDensitylayer
+    handleDenverBikeDensitylayer();
+}).fail(function(jqxhr, textStatus, error) {
+    var err = textStatus + ", " + error;
+    console.error("Error loading GeoJSON for DenverBikeDensitylayer: " + err);
+});
+
+
+
+		
 		$.getJSON('./BikeRacksDenver2.geojson', function(data) {
 			var BikeRacksDenverLayer = L.geoJSON(data, { 
 			pointToLayer: function(feature, latlng) {
@@ -211,7 +250,7 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
             var MedianHomeValues = "Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE;
             layer.bindPopup(MedianHomeValues);
         }
-    }).addTo(map);
+    })
 
     // Execute the function that depends on DenverACSLayer
     handleDenverACSLayer();
@@ -220,12 +259,7 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
     console.error("Error loading GeoJSON: " + err);
 });
 
-
-
-
-
-      
-		//Move map to layer bounds
+			//Move map to layer bounds
 			map.panTo(BikeRacksDenverLayer.getBounds().getCenter());
 
 			//add map to the layer control
@@ -274,7 +308,7 @@ legend.onAdd = function (map) {
     return div;
 };
 
-legend.addTo(map);
+//legend.addTo(map);
 
 
 
