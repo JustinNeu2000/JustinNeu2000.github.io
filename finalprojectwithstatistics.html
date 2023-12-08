@@ -177,8 +177,14 @@ function answer(d){
 
 $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 			var DenverACSLayer = L.geoJSON(data, { 
+				fillColor: none, // Changes fill color
+                		color: 'black',  // Changes border color
+                		weight: 2,
+              			opacity: 0,
+               			fillOpacity: 0
 			onEachFeature : function(feature, layer) {
-				layer.bindPopup("Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE);
+				var MedianHomeValues ="Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE;
+				layer.bindPopup(MedianHomeValues);
 				}
 			}).addTo(map);
             		});
@@ -195,7 +201,7 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 			//add map to the layer control
 			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
 			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
-      layerControl.addOverlay(DenverACSLayer, "Denver Median Home values by Neighborhood");
+      			layerControl.addOverlay(DenverACSLayer, "Denver Median Home values by Neighborhood");
 			
 		});
    
@@ -207,7 +213,7 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 				d > 10 ? '#FD8D3C' : 
 				d > 4 ? '#FEB24C' : 
 				d > 1 ? '#FED976' : 
-				'#FFEDA0';
+				'lightgray';
 		}
 		function style1(feature) {
     		return{	
@@ -225,12 +231,12 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend');
-	 colors = ['#FFEDA0','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','#E31A1C'];
+	 colors = ['lightgray','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','#E31A1C'];
        labels = ['0 - 1', '2 - 4', '5 - 10', '11 - 17', '18 - 150'];
-    // note that you'll want to change these values to match your classes
+    // note match your classes from style feature above
 
     div.innerHTML = '<h2>Number of Bike Racks<br />Per Neigborhood</h2><br>';
-    // loop through our density intervals and generate a label with a colored square for each interval
+    // loop through density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < colors.length; i++) {
         div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>';
     }
