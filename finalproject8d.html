@@ -74,14 +74,15 @@
         // the document ready wraps our javascript
 	// to make sure that everything loads in the 
 	// right order
-	//Function to use for dark mode	
-			console.log("Dark mode clicked first");
+	
+	$(document).ready(function() {
+		//Function to use for dark mode	
+			
 			function myFunction() {
+				console.log("Dark mode clicked first");
 			var element = document.body;
   			element.classList.toggle("dark-mode");
 			}
-	$(document).ready(function() {
-		
 		
 		// let's create our basemap! -- ##1 here
 			//map = L.map('map').setView([0,0], 10); shorthand
@@ -239,6 +240,7 @@ legend.addTo(map);
 
 <div id="header">
 <button onclick="myFunction()">Toggle dark mode</button>
+	<button onclick="myFunction2()">Toggle dark mode2</button>
 	<h1><a href="https://www.census.gov/programs-surveys/acs">Denver Bike Rack Data</a></h1>
 	<h2><a>Bike Rack Counts by Neighborhood</a></h2>
 	<p>Data from <a href="https://denvergov.org/opendata/">Denver Open Data</a></p>
