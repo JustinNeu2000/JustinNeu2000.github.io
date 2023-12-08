@@ -189,7 +189,7 @@ function answer(d){
 			}).addTo(map);
             		});
        		*/
-
+var DenverACSLayer;
 $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
     var DenverACSLayer = L.geoJSON(data, {
         fillColor: 'transparent',
