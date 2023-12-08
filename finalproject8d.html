@@ -76,6 +76,7 @@
 	// right order
 	$(document).ready(function() {
 		//Function to use for dark mode	
+			console.log("Dark mode clicked first");
 			function myFunction() {
 			var element = document.body;
   			element.classList.toggle("dark-mode");
@@ -243,9 +244,10 @@ legend.addTo(map);
 </div>
 <div id="map"></div>
 	<script>
-function myFunction() {
-   var element = document.body;
-   element.classList.toggle("dark-mode");
+function myFunction2() {
+   	console.log("Dark mode clicked second");
+	var element = document.body;
+   	element.classList.toggle("dark-mode");
 }
 </script>
 </body>
