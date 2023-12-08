@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Final Project: GIS 3410 By:Justin Neu</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/7.8.3/simple-statistics.min.js"></script>
+
+
+	<style>
+		.dark-mode {
+ 		 background-color: black;
+		  color: white;
+		}
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		
+		button {
+    			/*float: right;*/
+			position: absolute; /* Keeps the h1 heading from being pushed to the left. Position the button absolutely within the header */
+    			top: 0;
+    			right: 0;
+    			margin: 10px;
+}
+		#map { width:100%; height: 70%; }
+		
+		h1 { color: #3293a8;
+		     font-family: "Garamond", serif;
+		     font-size: 20px;
+		     position: relative;
+		    }
+		h2 { color: #3293a8;
+		     font-family: "Garamond", serif;
+		     font-size: 15px;
+		    }
+		p { font: serif 10px;
+		    color: #3293a8;
+		  }
+		
+		#header {
+			width: 100%;
+			margin: auto;
+			text-align: center;
+		}
+		
+		a { text-decoration: none; color: inherit; }
+	    	.legend{line-height: 18px;
+	   		color: #555;
+	  		background-color: #eeeeee;
+	   		padding: 2px;
+	      		}
+	    	.legend i {
+	    		width: 18px;
+	    		height: 18px;
+	    		float: left;
+	   		margin-right: 8px;
+	   		opacity: 0.8;
+			}
+		
+
+	</style>
+
+<script>
+
+        // the document ready wraps our javascript
+	// to make sure that everything loads in the 
+	// right order
+	
+	$(document).ready(function() {
+		
+		
+		// let's create our basemap! -- ##1 here
+			//map = L.map('map').setView([0,0], 10); shorthand
+			//map = L.map('map').setView({center: [0,0], zoom: 10});
+			map = L.map('map',{center: [0,0], zoom: 10});
+			
+		
+		// let's add three sets of background tiles - one from OSM,  one from HOT OSM, and one from openTopoMap
+		var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+		var HOTOSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+    			attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'});
+		var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
+		var Stamen_Watercolor = L.tileLayer('https://watercolormaps.collection.cooperhewitt.org/tile/watercolor/{z}/{x}/{y}.jpg', {
+			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			subdomains: 'abcd',
+			minZoom: 1,
+			maxZoom: 16,
+			ext: 'jpg'
+			});
+
+		// this is an object to keep track of our three basemaps -- ##2 here
+			var baseMaps = { "OpenStreetMap" : OSMTiles,
+			  		 "Humanitarian OSM" : HOTOSMTiles,
+             				 "OpenTopoMap" : OpenTopoMap,
+				         "Stamen_Watercolor": Stamen_Watercolor};
+
+
+		// the control let's the user turn on / off layers -- ##3 here
+		var overlaymaps = { };
+		var layerControl = L.control.layers(baseMaps,overlaymaps).addTo(map);
+
+function answer(d){
+		
+		return 		d > 150 ? '#E31A1C' : 
+				d > 17 ? '#FC4E2A' : 
+				d > 10 ? '#FD8D3C' : 
+				d > 4 ? '#FEB24C' : 
+				d > 1 ? '#FED976' : 
+				'#FFEDA0';
+		}
+		function style1(feature) {
+    		return{	
+				fillColor	:answer(feature.properties.Point_Count),
+				weight 	: 1,
+				opacity	: 1,
+				color		: 'white',
+				dashArray	: '3',
+				fillOpacity : 0.7
+			}
+		};
+
+
+		
+		// add the geoJSON data
+			$.getJSON('./DenverBikeDensity.geojson', function(data) {
+				//convert the file (data) into a layer
+     				 var countValues = data.features.map(function(feature) {
+        			return feature.properties.Point_Count;
+	 			 });
+     				DenverBikeDensitylayer = L.geoJSON(data, {
+    				style: style1,
+    				onEachFeature: function(feature, layer) {
+        			// Add popup
+        			var popupContent2 = "There are " + feature.properties.Point_Count + " Bike Racks <br>installed by the City of Denver in this Neighborhood";
+        			layer.bindPopup(popupContent2);
+    				}
+				}).addTo(map);
+		$.getJSON('./BikeRacksDenver2.geojson', function(data) {
+			var BikeRacksDenverLayer = L.geoJSON(data, { 
+			pointToLayer: function(feature, latlng) {
+           		 // Make circle instead of default
+            		return L.circleMarker(latlng, {
+                	radius: 6, // Adjust the radius as needed
+                	fillColor: 'red', // Changes fill color
+                	color: 'white',  // Changes border color
+                	weight: 2,
+              		opacity: 1,
+               		fillOpacity: 0.9
+            		});
+       			 },
+        		onEachFeature: function(feature, layer) {
+            		// Add popup
+            		var popupContent = "A Bike Rack Installed by the City of Denver";
+            		layer.bindPopup(popupContent);
+        		}
+			}).addTo(map);
+		//Move map to layer bounds
+			map.panTo(BikeRacksDenverLayer.getBounds().getCenter());
+
+			//add map to the layer control
+			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
+			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
+			
+		});
+   
+		});
+		function answer(d){
+		
+		return 		d > 150 ? '#E31A1C' : 
+				d > 17 ? '#FC4E2A' : 
+				d > 10 ? '#FD8D3C' : 
+				d > 4 ? '#FEB24C' : 
+				d > 1 ? '#FED976' : 
+				'#FFEDA0';
+		}
+		function style1(feature) {
+    		return{	
+				fillColor	:answer(feature.properties.Point_Count),
+				weight 	: 1,
+				opacity	: 1,
+				color		: 'white',
+				dashArray	: '3',
+				fillOpacity : 0.7
+			}
+		};
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend');
+	 colors = ['#FFEDA0','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','#E31A1C'];
+       labels = ['0 - 1', '2 - 4', '5 - 10', '11 - 17', '18 - 150'];
+    // note that you'll want to change these values to match your classes
+
+    div.innerHTML = '<h2>Number of Bike Racks<br />Per Neigborhood</h2><br>';
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < colors.length; i++) {
+        div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>';
+    }
+
+    return div;
+};
+
+legend.addTo(map);
+
+
+
+
+
+		
+	// end document ready
+	});
+
+</script>
+</head>
+<body>
+
+
+<div id="header">
+
+	<button onclick="myFunction()">Toggle dark mode</button>
+	<h1><a href="https://www.census.gov/programs-surveys/acs">Denver Bike Rack Data</a></h1>
+	<h2><a>Bike Rack Counts by Neighborhood</a></h2>
+	<p>Data from <a href="https://denvergov.org/opendata/">Denver Open Data</a></p>
+</div>
+<div id="map"></div>
+	<script>
+		//Function to use for dark mode	
+			
+			function myFunction() {
+				console.log("Dark mode clicked first");
+			var element = document.body;
+  			element.classList.toggle("dark-mode");
+			}
+
+</script>
+</body>
+</html>
