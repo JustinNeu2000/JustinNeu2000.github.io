@@ -121,12 +121,12 @@
 
 function answer(d){
 		
-		return 		d > 150 ? '#E31A1C' : 
+		return 		d > 150 ? 'lightgray' : 
 				d > 17 ? '#FC4E2A' : 
 				d > 10 ? '#FD8D3C' : 
 				d > 4 ? '#FEB24C' : 
 				d > 1 ? '#FED976' : 
-				'gray';
+				'#FFEDA0';
 		}
 		function style1(feature) {
     		return{	
@@ -177,7 +177,7 @@ function answer(d){
 
 $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 			var DenverACSLayer = L.geoJSON(data, { 
-				fillColor: none, // Changes fill color
+				fillColor: 'transparent', // Changes fill color
                 		color: 'black',  // Changes border color
                 		weight: 2,
               			opacity: 0,
@@ -208,12 +208,12 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 		});
 		function answer(d){
 		
-		return 		d > 150 ? '#E31A1C' : 
+		return 		d > 150 ? 'lightgray' : 
 				d > 17 ? '#FC4E2A' : 
 				d > 10 ? '#FD8D3C' : 
 				d > 4 ? '#FEB24C' : 
 				d > 1 ? '#FED976' : 
-				'lightgray';
+				'#FFEDA0';
 		}
 		function style1(feature) {
     		return{	
@@ -231,7 +231,7 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend');
-	 colors = ['lightgray','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','#E31A1C'];
+	 colors = ['#FFEDA0y','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','lightgray'];
        labels = ['0 - 1', '2 - 4', '5 - 10', '11 - 17', '18 - 150'];
     // note match your classes from style feature above
 
