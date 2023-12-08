@@ -189,9 +189,19 @@ function answer(d){
 			}).addTo(map);
             		});
        		*/
+// Define DenverACSLayer variable at a higher scope
 var DenverACSLayer;
+
+// Function to handle DenverACSLayer-dependent code
+function handleDenverACSLayer() {
+    // Your code that depends on DenverACSLayer should be placed here
+    // For example, you might want to add DenverACSLayer to the layer control
+    layerControl.addOverlay(DenverACSLayer, "Denver Median Home values by Neighborhood");
+}
+
+// Load GeoJSON data
 $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
-    var DenverACSLayer = L.geoJSON(data, {
+    DenverACSLayer = L.geoJSON(data, {
         fillColor: 'transparent',
         color: 'black',
         weight: 2,
@@ -203,14 +213,13 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
         }
     }).addTo(map);
 
-    // Any code that depends on DenverACSLayer should be placed here
-
+    // Execute the function that depends on DenverACSLayer
+    handleDenverACSLayer();
 }).fail(function(jqxhr, textStatus, error) {
     var err = textStatus + ", " + error;
     console.error("Error loading GeoJSON: " + err);
 });
 
-// Any code that doesn't depend on DenverACSLayer can be placed here
 
 
 
@@ -222,7 +231,7 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 			//add map to the layer control
 			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
 			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
-      			layerControl.addOverlay(DenverACSLayer, "Denver Median Home values by Neighborhood");
+      			//layerControl.addOverlay(DenverACSLayer, "Denver Median Home values by Neighborhood");
 			
 		});
    
