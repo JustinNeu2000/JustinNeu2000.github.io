@@ -175,7 +175,7 @@ function answer(d){
         		}
 			}).addTo(map);
 
-$.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
+/*$.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 			var DenverACSLayer = L.geoJSON(data, { 
 				fillColor: 'transparent', // Changes fill color
                 		color: 'black',  // Changes border color
@@ -188,8 +188,29 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 				}
 			}).addTo(map);
             		});
-       		
+       		*/
 
+$.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
+    var DenverACSLayer = L.geoJSON(data, {
+        fillColor: 'transparent',
+        color: 'black',
+        weight: 2,
+        opacity: 0,
+        fillOpacity: 0,
+        onEachFeature: function(feature, layer) {
+            var MedianHomeValues = "Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE;
+            layer.bindPopup(MedianHomeValues);
+        }
+    }).addTo(map);
+
+    // Any code that depends on DenverACSLayer should be placed here
+
+}).fail(function(jqxhr, textStatus, error) {
+    var err = textStatus + ", " + error;
+    console.error("Error loading GeoJSON: " + err);
+});
+
+// Any code that doesn't depend on DenverACSLayer can be placed here
 
 
 
