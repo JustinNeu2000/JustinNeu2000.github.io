@@ -26,7 +26,7 @@
 		}
 		button {
     			/*float: right;*/
-			position: absolute; /* Position the button absolutely within the #header */
+			position: absolute; /* Position the button absolutely within the header */
     			top: 0;
     			right: 0;
     			margin: 10px;
@@ -237,10 +237,16 @@ legend.addTo(map);
 
 <div id="header">
 <button onclick="myFunction()">Toggle dark mode</button>
-	<h1><a href="https://www.census.gov/programs-surveys/acs">Denver 2021 American Community Survey (Census) data</a></h1>
-	<h2><a>Median Housing Values by Neighborhood</a></h2>
-	<p>Data from <a href="https://denvergov.org/opendata/dataset/city-and-county-of-denver-american-community-survey-blk-grp-2017-2021">Denver Open Data</a></p>
+	<h1><a href="https://www.census.gov/programs-surveys/acs">Denver Bike Rack Data</a></h1>
+	<h2><a>Bike Rack Counts by Neighborhood</a></h2>
+	<p>Data from <a href="https://denvergov.org/opendata/">Denver Open Data</a></p>
 </div>
 <div id="map"></div>
+	<script>
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+</script>
 </body>
 </html>
