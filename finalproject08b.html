@@ -141,6 +141,19 @@ function answer(d){
 
 		
 		// add the geoJSON data
+			$.getJSON('./DenverBikeDensity.geojson', function(data) {
+				//convert the file (data) into a layer
+     				 var countValues = data.features.map(function(feature) {
+        			return feature.properties.Point_Count;
+	 			 });
+     				DenverBikeDensitylayer = L.geoJSON(data, {
+    				style: style1,
+    				onEachFeature: function(feature, layer) {
+        			// Add popup
+        			var popupContent2 = "There are " + feature.properties.Point_Count + " Bike Racks <br>installed by the City of Denver in this Neighborhood";
+        			layer.bindPopup(popupContent2);
+    				}
+				}).addTo(map);
 		$.getJSON('./BikeRacksDenver2.geojson', function(data) {
 			var BikeRacksDenverLayer = L.geoJSON(data, { 
 			pointToLayer: function(feature, latlng) {
@@ -160,27 +173,13 @@ function answer(d){
             		layer.bindPopup(popupContent);
         		}
 			}).addTo(map);
-			$.getJSON('./DenverBikeDensity.geojson', function(data) {
-				//convert the file (data) into a layer
-     				 var countValues = data.features.map(function(feature) {
-        			return feature.properties.Point_Count;
-	 			 });
-     				DenverBikeDensitylayer = L.geoJSON(data, {
-    				style: style1,
-    				onEachFeature: function(feature, layer) {
-        			// Add popup
-        			var popupContent2 = "There are " + feature.properties.Point_Count + " Bike Racks <br>installed by the City of Denver in this Neighborhood";
-        			layer.bindPopup(popupContent2);
-    				}
-				}).addTo(map);
-
 		//Move map to layer bounds
 			map.panTo(BikeRacksDenverLayer.getBounds().getCenter());
 
 			//add map to the layer control
-			
-			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
 			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
+			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
+			
 		});
    
 		});
