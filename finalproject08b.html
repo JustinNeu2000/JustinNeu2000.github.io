@@ -178,8 +178,9 @@ function answer(d){
 			map.panTo(BikeRacksDenverLayer.getBounds().getCenter());
 
 			//add map to the layer control
-			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
+			
 			layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
+			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
 		});
    
 		});
