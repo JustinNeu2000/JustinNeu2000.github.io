@@ -75,13 +75,7 @@
 	// to make sure that everything loads in the 
 	// right order
 	$(document).ready(function() {
-		//Function to use for dark mode	
-			function myFunction() {
-			var element = document.body;
-  			element.classList.toggle("dark-mode");
-			}
-		
-		// let's create our basemap! -- ##1 here
+			// let's create our basemap! -- ##1 here
 			//map = L.map('map').setView([0,0], 10); shorthand
 			//map = L.map('map').setView({center: [0,0], zoom: 10});
 			map = L.map('map',{center: [0,0], zoom: 10});
@@ -224,9 +218,6 @@ legend.addTo(map);
 
 
 
-
-
-		
 	// end document ready
 	});
 
