@@ -138,12 +138,12 @@
             		layer.bindPopup(popupContent);
         		}
 			}).addTo(map);
-$.getJSON('./DenverBikeDensity.geojson', function(data) {
-			//convert the file (data) into a layer
-      var countValues = data.features.map(function(feature) {
-        return feature.properties.Point_Count;
-	  });
-     DenverBikeDensitylayer = L.geoJSON(data, {
+			$.getJSON('./DenverBikeDensity.geojson', function(data) {
+				//convert the file (data) into a layer
+     				 var countValues = data.features.map(function(feature) {
+        			return feature.properties.Point_Count;
+	 			 });
+     				DenverBikeDensitylayer = L.geoJSON(data, {
     				style: {
         			color: 'orange',
        				weight: 2,
@@ -165,6 +165,51 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
 		});
    
 		});
+		function answer(d){
+		
+		return 		d > 150 ? '#E31A1C' : 
+				d > 17 ? '#FC4E2A' : 
+				d > 10 ? '#FD8D3C' : 
+				d > 4 ? '#FEB24C' : 
+				d > 1 ? '#FED976' : 
+				'#FFEDA0';
+		}
+		function style1(feature) {
+    		return{	
+				fillColor	:answer(feature.properties.Point_Count),
+				weight 	: 1,
+				opacity	: 1,
+				color		: 'white',
+				dashArray	: '3',
+				fillOpacity : 0.7
+			}
+		};
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend');
+	 colors = ['#FFEDA0','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','#E31A1C'];
+       labels = ['0 - 1', '2 - 4', '5 - 10', '11 - 17', '18 - 150'];
+    // note that you'll want to change these values to match your classes
+
+    div.innerHTML = '<h2>Number of Bike Racks<br />Per Neigborhood</h2><br>';
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < colors.length; i++) {
+        div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>';
+    }
+
+    return div;
+};
+
+legend.addTo(map);
+
+
+
+
+
+		
 	// end document ready
 	});
 
