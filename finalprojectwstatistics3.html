@@ -246,11 +246,11 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
 			}
 		};
 	// Function to update the HTML table
-function updateTable(neighborhoodName, medianHomeValues, bikeRackCount) {
+function updateTable(NeighborhoodName, MedianHomeValues, Point_Count) {
     // Update the HTML elements with the provided values
-    document.getElementById("NeighborhoodName").textContent = neighborhoodName;
-    document.getElementById("MedianHomeValues").textContent = medianHomeValues;
-    document.getElementById("popupContent2").textContent = bikeRackCount;
+    document.getElementById("NeighborhoodName").textContent = NeighborhoodName;
+    document.getElementById("MedianHomeValues").textContent = MedianHomeValues;
+    document.getElementById("popupContent2").textContent = Point_Count;
 }
 
 var legend = L.control({position: 'bottomright'});
@@ -274,7 +274,7 @@ DenverACSLayer.on('click', function(event) {
     var feature = event.layer.feature;
     // Update the HTML table
     // Update the HTML table
-    updateTable(NeighborhoodName, medianHomeValues, bikeRackCount);
+    updateTable(NeighborhoodName, MedianHomeValues, Point_Count);
 });
 //legend.addTo(map);
 
