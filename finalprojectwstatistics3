@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Final Project: GIS 3410 By:Justin Neu</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-statistics/7.8.3/simple-statistics.min.js"></script>
+
+
+	<style>
+		.dark-mode {
+ 		 background-color: black;
+		  color: white;
+		}
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		
+		button {
+    			/*float: right;*/
+			position: absolute; /* Keeps the h1 heading from being pushed to the left. Position the button absolutely within the header */
+    			top: 0;
+    			right: 0;
+    			margin: 10px;
+			padding: 10px 20px; /* Add padding to increase clickable area */
+    			width: auto; 
+    			height: auto;
+    			cursor: pointer; /* Add cursor style to indicate is clickable */
+			}
+		#map { width:100%; height: 70%; }
+		
+		h1 { color: #3293a8;
+		     font-family: "Garamond", serif;
+		     font-size: 20px;
+		     position: relative;
+		    }
+		h2 { color: #3293a8;
+		     font-family: "Garamond", serif;
+		     font-size: 15px;
+		    }
+		p { font: serif 10px;
+		    color: #3293a8;
+		  }
+		
+		#header {
+			width: 100%;
+			margin: auto;
+			text-align: center;
+		}
+		
+		a { text-decoration: none; color: inherit; }
+	    	.legend{line-height: 18px;
+	   		color: #555;
+	  		background-color: #eeeeee;
+	   		padding: 2px;
+	      		}
+	    	.legend i {
+	    		width: 18px;
+	    		height: 18px;
+	    		float: left;
+	   		margin-right: 8px;
+	   		opacity: 0.8;
+			}
+		
+
+	</style>
+
+<script>
+
+        // the document ready wraps our javascript
+	// to make sure that everything loads in the 
+	// right order
+	
+	$(document).ready(function() {
+		
+		
+		// let's create our basemap! -- ##1 here
+			//map = L.map('map').setView([0,0], 10); shorthand
+			//map = L.map('map').setView({center: [0,0], zoom: 10});
+			map = L.map('map',{center: [0,0], zoom: 10});
+			
+		
+		// let's add three sets of background tiles - one from OSM,  one from HOT OSM, and one from openTopoMap
+		var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+		var HOTOSMTiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+    			attribution: '© OpenStreetMap contributors, Tiles style by Humanitarian OpenStreetMap Team hosted by OpenStreetMap France'});
+		var OpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+			maxZoom: 19,
+			attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'});
+		var Stamen_Watercolor = L.tileLayer('https://watercolormaps.collection.cooperhewitt.org/tile/watercolor/{z}/{x}/{y}.jpg', {
+			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			subdomains: 'abcd',
+			minZoom: 1,
+			maxZoom: 16,
+			ext: 'jpg'
+			});
+
+		// this is an object to keep track of our three basemaps -- ##2 here
+			var baseMaps = { "OpenStreetMap" : OSMTiles,
+			  		 "Humanitarian OSM" : HOTOSMTiles,
+             				 "OpenTopoMap" : OpenTopoMap,
+				         "Stamen_Watercolor": Stamen_Watercolor};
+
+
+		// the control let's the user turn on / off layers -- ##3 here
+		var overlaymaps = { };
+		var layerControl = L.control.layers(baseMaps,overlaymaps).addTo(map);
+
+/*function answer(d){
+		
+		return 		d > 150 ? 'lightgray' : 
+				d > 17 ? '#FC4E2A' : 
+				d > 10 ? '#FD8D3C' : 
+				d > 4 ? '#FEB24C' : 
+				d > 1 ? '#FED976' : 
+				'#FFEDA0';
+		}
+		function style1(feature) {
+    		return{	
+				fillColor	:answer(feature.properties.Point_Count),
+				weight 	: 1,
+				opacity	: 1,
+				color		: 'white',
+				dashArray	: '3',
+				fillOpacity : 0.7
+			}
+		};
+*/
+
+		
+		// add the geoJSON data
+			/*$.getJSON('./DenverBikeDensity.geojson', function(data) {
+				//convert the file (data) into a layer
+     				 var countValues = data.features.map(function(feature) {
+        			return feature.properties.Point_Count;
+	 			 });
+     				DenverBikeDensitylayer = L.geoJSON(data, {
+    				style: style1,
+    				onEachFeature: function(feature, layer) {
+        			// Add popup
+        			var popupContent2 = "There are " + feature.properties.Point_Count + " Bike Racks <br>installed by the City of Denver in this Neighborhood";
+        			layer.bindPopup(popupContent2);
+    				}
+				}).addTo(map);*/
+function handleDenverBikeDensitylayer() {
+    // Your code that depends on DenverACSLayer should be placed here
+    // For example, you might want to add DenverBikeDeDensityLayer to the layer control
+    layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
+}
+// Load GeoJSON data for DenverBikeDensitylayer
+$.getJSON('./DenverBikeDensity.geojson', function(data) {
+    DenverBikeDensitylayer = L.geoJSON(data, {
+        style: style1,
+        onEachFeature: function(feature, layer) {
+            var popupContent2 = "There are " + feature.properties.Point_Count + " Bike Racks <br>installed by the City of Denver in this Neighborhood";
+            layer.bindPopup(popupContent2);
+        }
+    });
+    // add/remove events to show/hide the legend
+    map.on('overlayadd', function(event) {
+        if (event.layer === DenverBikeDensitylayer) {
+            // Show the legend when DenverBikeDensitylayer is added to the map
+            legend.addTo(map);
+        }
+    });
+
+    map.on('overlayremove', function(event) {
+        if (event.layer === DenverBikeDensitylayer) {
+            // Hide the legend when DenverBikeDensitylayer is removed from the map
+            map.removeControl(legend);
+        }
+    });
+
+    // Handle any code that depends on DenverBikeDensitylayer
+    handleDenverBikeDensitylayer();
+}).fail(function(jqxhr, textStatus, error) {
+    var err = textStatus + ", " + error;
+    console.error("Error loading GeoJSON for DenverBikeDensitylayer: " + err);
+});
+
+
+
+		
+		$.getJSON('./BikeRacksDenver2.geojson', function(data) {
+			var BikeRacksDenverLayer = L.geoJSON(data, { 
+			pointToLayer: function(feature, latlng) {
+           		 // Make circle instead of default
+            		return L.circleMarker(latlng, {
+                	radius: 3, // Adjust the radius as needed
+                	fillColor: 'red', // Changes fill color
+                	color: 'white',  // Changes border color
+                	weight: 2,
+              		opacity: 1,
+               		fillOpacity: 0.9
+            		});
+       			 },
+        		onEachFeature: function(feature, layer) {
+            		// Add popup
+            		var popupContent = "A Bike Rack Installed by the City of Denver";
+            		layer.bindPopup(popupContent);
+        		}
+			}).addTo(map);
+
+/*$.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
+			var DenverACSLayer = L.geoJSON(data, { 
+				fillColor: 'transparent', // Changes fill color
+                		color: 'black',  // Changes border color
+                		weight: 2,
+              			opacity: 0,
+               			fillOpacity: 0,
+			onEachFeature : function(feature, layer) {
+				var MedianHomeValues ="Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE;
+				layer.bindPopup(MedianHomeValues);
+				}
+			}).addTo(map);
+            		});
+       		*/
+// Define DenverACSLayer variable at a higher scope
+var DenverACSLayer;
+
+// Function to handle DenverACSLayer-dependent code
+function handleDenverACSLayer() {
+    // Your code that depends on DenverACSLayer should be placed here
+    // For example, you might want to add DenverACSLayer to the layer control
+    layerControl.addOverlay(DenverACSLayer, "Denver Median Home values by Neighborhood");
+}
+
+// Load GeoJSON data
+$.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
+    DenverACSLayer = L.geoJSON(data, {
+        fillColor: 'transparent',
+        color: 'black',
+        weight: 2,
+        opacity: 0,
+        fillOpacity: 0,
+        onEachFeature: function(feature, layer) {
+   				var NeighborhoodName = feature.properties.NBHD_NAME || "Unknown Neighborhood";
+    				var MedianHomeValues = "Median Home Value: $" + (feature.properties.MEDIAN_HOME_VALUE || "N/A");
+    				var DisplayNeighborhoodandMedianHomeValues = NeighborhoodName + ", " + MedianHomeValues;
+   				layer.bindPopup(DisplayNeighborhoodandMedianHomeValues);
+	}
+
+    })
+ 
+    // Execute the function that depends on DenverACSLayer
+    handleDenverACSLayer();
+}).fail(function(jqxhr, textStatus, error) {
+    var err = textStatus + ", " + error;
+    console.error("Error loading GeoJSON: " + err);
+});
+
+			//Move map to layer bounds
+			map.panTo(BikeRacksDenverLayer.getBounds().getCenter());
+
+			//add map to the layer control
+			layerControl.addOverlay(BikeRacksDenverLayer, "Denver Bike Racks"); 
+			//layerControl.addOverlay(DenverBikeDensitylayer, "Denver Neighborhood Bike Rack Count");
+      			//layerControl.addOverlay(DenverACSLayer, "Denver Median Home values by Neighborhood");
+			
+		});
+   
+		});
+		function answer(d){
+		
+		return 		d > 150 ? 'lightgray' : 
+				d > 17 ? '#FC4E2A' : 
+				d > 10 ? '#FD8D3C' : 
+				d > 4 ? '#FEB24C' : 
+				d > 1 ? '#FED976' : 
+				'#FFEDA0';
+		}
+		function style1(feature) {
+    		return{	
+				fillColor	:answer(feature.properties.Point_Count),
+				weight 	: 1,
+				opacity	: 1,
+				color		: 'white',
+				dashArray	: '3',
+				fillOpacity : 0.7
+			}
+		};
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend');
+	 colors = ['#FFEDA0','#FED976','#FEB24C' ,'#FD8D3C','#FC4E2A','lightgray'];
+       labels = ['0 - 1', '2 - 4', '5 - 10', '11 - 17', '18 - 150'];
+    // note match your classes from style feature above
+
+    div.innerHTML = '<h2>Number of Bike Racks<br />Per Neigborhood</h2><br>';
+    // loop through density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < colors.length; i++) {
+        div.innerHTML += '<i style="background:' + colors[i] + '"></i> ' + labels[i] + '<br>';
+    }
+
+    return div;
+};
+
+//legend.addTo(map);
+
+// end document ready
+	//});
+
+</script>
+</head>
+<body>
+
+
+<div id="header">
+
+	<button onclick="myFunction()">Toggle dark mode</button>
+	<h1><a href="https://www.census.gov/programs-surveys/acs">Denver Bike Rack Data</a></h1>
+	<h2><a>Bike Rack Counts by Neighborhood</a></h2>
+	<p>Data from <a href="https://denvergov.org/opendata/">Denver Open Data</a></p>
+</div>
+<div id="map"></div>
+	<script>
+		//Function to use for dark mode	
+			
+			function myFunction() {
+				console.log("Dark mode clicked first");
+			var element = document.body;
+  			element.classList.toggle("dark-mode");
+			}
+
+</script>
+  <div class="wrapper">
+    <h1>Median Home Values By Neighborhood</h1>
+    <table style="width:100%">
+  <tr>
+    <th>Neighborhood</th>
+    <th>Home Value</th>
+    <th>Number of Bike Racks</th>
+  </tr>
+  <tr>
+    <td></td>
+    <td>Maria Anders</td>
+    <td>Germany</td>
+  </tr>
+  <tr>
+    <td>Centro comercial Moctezuma</td>
+    <td>Francisco Chang</td>
+    <td>Mexico</td>
+  </tr>
+</table>
+  </div>
+</body>
+</html>
