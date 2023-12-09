@@ -270,10 +270,15 @@
 				return div;
 											};
 				DenverACSLayer.on('click', function(event) {
-															var feature = event.layer.feature;
-															// Update the HTML table
-															updateTable(NeighborhoodName, MedianHomeValues, Point_Count);
-															});
+    					var feature = event.layer.feature;
+    					var NeighborhoodName = feature.properties.NBHD_NAME || "Unknown Neighborhood";
+    					var MedianHomeValues = "Median Home Value: $" + (feature.properties.MEDIAN_HOME_VALUE || "N/A");
+    					var Point_Count = "Number of Bike Racks: " + (feature.properties.Point_Count || "N/A");
+
+    // Update the HTML table
+    updateTable(NeighborhoodName, MedianHomeValues, Point_Count);
+});
+
 				//legend.addTo(map);
 
 				// end document ready
