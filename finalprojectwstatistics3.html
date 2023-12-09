@@ -213,22 +213,8 @@ $.getJSON('./DenverBikeDensity.geojson', function(data) {
             		layer.bindPopup(popupContent);
         		}
 			}).addTo(map);
-
-/*$.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
-			var DenverACSLayer = L.geoJSON(data, { 
-				fillColor: 'transparent', // Changes fill color
-                		color: 'black',  // Changes border color
-                		weight: 2,
-              			opacity: 0,
-               			fillOpacity: 0,
-			onEachFeature : function(feature, layer) {
-				var MedianHomeValues ="Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE;
-				layer.bindPopup(MedianHomeValues);
-				}
-			}).addTo(map);
-            		});
-       		*/
-// Define DenverACSLayer variable at a higher scope
+			
+// Define DenverACSLayer variable at a higher level
 var DenverACSLayer;
 
 // Function to handle DenverACSLayer-dependent code
@@ -310,7 +296,11 @@ legend.onAdd = function (map) {
 
     return div;
 };
-
+DenverACSLayer.on('click', function(event) {
+    var feature = event.layer.feature;
+    // Update the HTML table
+    updateTable(NeighborhoodName);
+});
 //legend.addTo(map);
 
 // end document ready
@@ -348,9 +338,9 @@ legend.onAdd = function (map) {
     <th>Number of Bike Racks</th>
   </tr>
   <tr>
-    <td></td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
+    <td id="NeighborhoodName"></td>
+    <td id="MedianHomeValues"></td>
+    <td id="popupContent2"></td>
   </tr>
   <tr>
     <td>Centro comercial Moctezuma</td>
