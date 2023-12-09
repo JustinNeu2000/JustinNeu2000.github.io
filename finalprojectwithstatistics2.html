@@ -247,11 +247,12 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
         opacity: 0,
         fillOpacity: 0,
         onEachFeature: function(feature, layer) {
-            var NeighborhoodName = feature.properties.NBHD_NAME;
-            var MedianHomeValues = "Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE;
-            var DislplayNeighborhoodandMedianHomeValues = NeighborhoodName +MedianHomeValues;
-            layer.bindPopup(DislplayNeighborhoodandMedianHomeValues);
-        }
+   				var NeighborhoodName = feature.properties.NBHD_NAME || "Unknown Neighborhood";
+    				var MedianHomeValues = "Median Home Value: $" + (feature.properties.MEDIAN_HOME_VALUE || "N/A");
+    				var DisplayNeighborhoodandMedianHomeValues = NeighborhoodName + ", " + MedianHomeValues;
+   				layer.bindPopup(DisplayNeighborhoodandMedianHomeValues);
+	}
+
     })
  
     // Execute the function that depends on DenverACSLayer
