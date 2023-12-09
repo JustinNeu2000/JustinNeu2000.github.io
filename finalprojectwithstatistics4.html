@@ -79,14 +79,6 @@
         // the document ready wraps our javascript
 	// to make sure that everything loads in the 
 	// right order
-function updateTable(NeighborhoodName, MedianHomeValues, Point_Count) {
-    // Update the HTML elements with the provided values
-    document.getElementById("NeighborhoodName").textContent = NeighborhoodName;
-    document.getElementById("MedianHomeValues").textContent = MedianHomeValues;
-    document.getElementById("popupContent2").textContent = Point_Count;
-}
-
-	
 	$(document).ready(function() {
 		
 		
@@ -325,7 +317,7 @@ function updateTable(NeighborhoodName, MedianHomeValues, Point_Count) {
   <tr>
     <td id="NeighborhoodName"></td>
     <td id="MedianHomeValues"></td>
-    <td id="popupContent2"></td>
+    <td id="Point_Count"></td>
   </tr>
   <tr>
     <td>Centro comercial Moctezuma</td>
