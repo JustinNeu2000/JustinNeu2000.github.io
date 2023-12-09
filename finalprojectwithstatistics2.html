@@ -249,7 +249,7 @@ $.getJSON('./DenverACSDatawHomeValues.geojson', function(data) {
         onEachFeature: function(feature, layer) {
             var NeighborhoodName = feature.properties.NBHD_NAME;
             var MedianHomeValues = "Median Home Value: " + "$" + feature.properties.MEDIAN_HOME_VALUE;
-            var DislplayNeighborhoodandMedianHomeValues = NeighborhoodName+<br>MedianHomeValues;
+            var DislplayNeighborhoodandMedianHomeValues = NeighborhoodName+ <br>MedianHomeValues;
             layer.bindPopup(DislplayNeighborhoodandMedianHomeValues);
         }
     })
